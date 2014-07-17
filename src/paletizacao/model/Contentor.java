@@ -7,29 +7,54 @@
 package paletizacao.model;
 
 /**
- *
+ * Representa um contentor.
+ * Utilizado para saber o volume de espaco maximo a utilizar.
  * @author Mac
  */
 public class Contentor {
     
+    /**Nome do contentor */
+    private String descricao;
+    
+    /**Altura de um contento em cm*/
     private double altura;
     
+    /**Comprimento de um contentor em cm */
     private double comprimento;
     
-    private double profundidade;
-    
-    private double margemCarga;
+    /** largura de um contentor em cm */
+    private double largura;
 
-    Contentor() {
+    /**
+     * Cria um novo contentor.
+     */
+    public Contentor() {
+        this.altura=0.0;
+        this.comprimento = 0.0;
+        this.largura = 0.0;
     }
     
-    Contentor(double alt,double cmp, double prf, double mC) {
+    /**
+     *  Cria um novo contentor.
+     * @param des nome do contentor
+     * @param cmp altura de um contentor em cm
+     * @param lg comprimento do contentor em cm
+     * @param alt larguram do contentor em cm
+     */
+    public Contentor(String des,double cmp,double lg, double alt) {
+        this.descricao = des;
         this.altura=alt;
         this.comprimento = cmp;
-        this.profundidade = prf;
-        this.margemCarga = mC;
+        this.largura = lg;
     }
     
+    /**
+     * Metodo que calcula o volume do contentor em m3
+     * @return vol em m3
+     */
+    public double getVolume() {
+        return comprimento*largura*altura/1000000000;
+    }
     
     
 }

@@ -7,11 +7,21 @@
 package paletizacao.persistance;
 
 /**
- *
+ * Interface a ser implementada por fabricas de repositorios concretas.
  * @author Mac
  */
 public interface IRepositoryFactory {
     
+    /**
+     * Metodo que permite o acesso aos repositorios de artigos.
+     * @return repositorio de artigos
+     */
     public IArtigosRepository getArtigosRepository();
+    
+    /**
+     * Metodo que permite o acesso aos repositorios de contentores.
+     * @return repositorio de contentores
+     */
+    public IContentorRepository getContentorRepository();
     
 }

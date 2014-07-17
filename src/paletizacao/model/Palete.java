@@ -7,26 +7,43 @@
 package paletizacao.model;
 
 /**
- *
  * @author Mac
  */
 public class Palete {
     
+    /**Altura da palete */
     private double altura;
      
+    /**Comprimento da Palete */
     private double comprimento;
     
-    private double profundidade;
+    /**Largura da palete*/
+    private double largura;
     
+    /**Tipo de palete a usar */
     private String tipoPalete;
 
-    Palete() {
+    /**
+     * Cria uma nova palete.
+     */
+    public Palete() {
+        altura = 0.0;
+        comprimento = 0.0;
+        largura = 0.0;
+        tipoPalete = "";
     }
     
-    Palete(double alt,double cmp, double prf, String tipo) {
+    /**
+     * Cria uma nova palete.
+     * @param alt altura da palete
+     * @param cmp comprimento da palete
+     * @param lg largura da palete
+     * @param tipo tipo de palete a ser usada
+     */ 
+    public Palete(double alt,double cmp, double lg, String tipo) {
         this.altura=alt;
         this.comprimento = cmp;
-        this.profundidade = prf;
+        this.largura = lg;
         this.tipoPalete = tipo;
     }
     

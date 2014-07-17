@@ -7,21 +7,31 @@
 package paletizacao.persistance.inmemory;
 
 import paletizacao.persistance.IArtigosRepository;
+import paletizacao.persistance.IContentorRepository;
 import paletizacao.persistance.IRepositoryFactory;
 import sun.security.jca.GetInstance;
 
 /**
- *
+ * Fabrica de repositorios.
+ * Implementado segundo o padrão Singleton(GOF) para garantir a existencia de apenas uma fabrica.
  * @author Mac
  */
 public class InMemoryRepositoryFactory implements IRepositoryFactory{
 
-    private InMemoryRepositoryFactory instance;
+    /** Fabrica de Repositorios*/
+    private static InMemoryRepositoryFactory instance;
     
+    /**
+     * Cria uma nova InMemoryRepositoryFactor.
+     */
     private InMemoryRepositoryFactory() {
     }
     
-    private synchronized InMemoryRepositoryFactory getInstance() {
+    /**
+     * Permite aceder a Factory
+     * @return instance
+     */
+    public static synchronized InMemoryRepositoryFactory getInstance() {
         if(instance == null) {
             instance = new InMemoryRepositoryFactory();
         }
@@ -29,9 +39,18 @@ public class InMemoryRepositoryFactory implements IRepositoryFactory{
         return instance;
     }
     
+    /**
+     * Metodo que permite o acesso aos repositorios de artigos.
+     * @return repositorio de artigos
+     */
     @Override
     public IArtigosRepository getArtigosRepository() {
         return new ArtigosRepository();
+    }
+    
+    @Override
+    public IContentorRepository getContentorRepository() {
+        return new ContentorRepository();
     }
     
 }

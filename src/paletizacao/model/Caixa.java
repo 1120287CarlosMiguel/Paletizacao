@@ -16,14 +16,17 @@ public class Caixa {
     /** codigo que identifica a caixa */
     private String codCaixa;
     
-    /** altura da caixa */
+    /** altura da caixa em metros */
     private double altura;
     
-    /** comprimento da caixa */
+    /** comprimento da caixa em metros */
     private double comprimento;
     
-    /** largura da caixa*/
+    /** largura da caixa em metros*/
     private double largura;
+    
+    /**peso da cauxa em kg*/
+    private double peso;
 
     /** Cria uma nova caixa. */
     public Caixa() {
@@ -35,14 +38,23 @@ public class Caixa {
      * @param cmp comprimento da caixa
      * @param lg largura da caixa
      * @param cod codigo identificador da caixa
+     * @param  kg peso da caixa
      */
-    public Caixa(double alt,double cmp, double lg, String cod) {
+    public Caixa(double alt,double cmp, double lg, String cod,double kg) {
         this.altura=alt;
         this.comprimento = cmp;
         this.largura = lg;
         this.codCaixa = cod;
+        this.peso = kg;
     }
     
+    /**
+     * Metodo que calcula o volume da caixa.
+     * @return volume da caixa em metros
+     */
+    public double getVolume() {
+        return largura * comprimento * altura;
+    }
     
     
 }

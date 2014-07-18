@@ -21,9 +21,9 @@ import paletizacao.persistance.inmemory.InMemoryRepositoryFactory;
 public class Bootstrap {
     
     public Bootstrap() {
-        Caixa c1 = new Caixa(5.5, 17.6, 10.8,"541191");
+        Caixa c1 = new Caixa(5.5, 17.6, 10.8,"541191",0.38);
         
-        Artigo art1 = new Artigo("Amoras DUJARDIN 10*450 grs","22A10",c1,10,12,720.0,721.0);
+        Artigo art1 = new Artigo("Amoras DUJARDIN 10*450 grs","22A10",c1,10,12,720.0,721.0,400,25);
         InMemoryRepositoryFactory.getInstance().getArtigosRepository().add(art1);
         
         Contentor con1 = new Contentor("REEFER 20´´ Std",5451,2290,2167);

@@ -70,8 +70,10 @@ public class Artigo {
      * @param cpf numero de caixas por fieira
      * @param pl peso liquido do artigo
      * @param pb peso bruto do artigo
+     * @param gr gramas por unidade
+     * @param uni unidades por caixa
      */
-    public Artigo(String nome,String cod, Caixa tipo, int numF, int cpf,double pl, double pb) {
+    public Artigo(String nome,String cod, Caixa tipo, int numF, int cpf,double pl, double pb, double gr, int uni) {
         this.nomeArtigo = nome;
         this.codArtigo = cod;
         this.tipoCaixa = tipo;
@@ -79,11 +81,61 @@ public class Artigo {
         this.caixaPorFiada = cpf;
         this.pesoBruto = pb;
         this.pesoLiquido = pl;
+        this.grUNI = gr;
+        this.uniCaixa = uni;
     }
     
-    public String getNomeArtigo() {
-        return nomeArtigo;
+    /**
+     * Metodo que converte gramas do produto em unidades.
+     * @param gram int com peso em gramas desejadas
+     * @return int com unidades necessarias
+     */
+    public double grToUnidade(double gram) {
+        return gram/grUNI;
     }
+    
+    /**
+     * Metodo que converte o peso() em numero de caixas.
+     * Para obter o resultado didive se o numero de unidades a transportar pelo numero de caixas por unidade
+     * (valor a ser verificado se tem casas decimais ou nao)
+     * @param gr int com peso em gramas para transportar
+     * @return numero de caixas a transportar
+     */
+     public double caixasPorGrama(double gr) {
+        return grToUnidade(gr)/this.uniCaixa;
+    }
+    
+     /**
+      * Metodo que converte o peso(gramas) da encomenda em volume das caixas.
+      * Retorna -1 se o numero de caixas a ser usado nao for um inteiro, deste modo e feita a validacao para apenas ser possivel
+      * encomendar uma quantidade certa.
+      * @param gramas peso em gramas da encomenda
+      * @return double com o volume de caixas a ser encomendado
+      */
+     public double volumePorGrama(double gramas) {
+         double numCaixas = caixasPorGrama(gramas);
+         if(numCaixas % 1 == 0) {
+             return numCaixas * tipoCaixa.getVolume();
+         } else {
+             return -1.0;
+         }
+     }
+     
+     /**
+      * Metodo que converte o peso(kilogramas) da encomenda em volume das caixas.
+      * Retorna -1 se o numero de caixas a ser usado nao for um inteiro, deste modo e feita a validacao para apenas ser possivel
+      * encomendar uma quantidade certa.
+      * @param kg peso em kilogramas da encomenda
+      * @return double com o volume de caixas a ser encomendado
+      */
+     public double volumePorKiloGrama(double kg) {
+         double numCaixas = caixasPorGrama(kg * 1000);
+         if(numCaixas % 1 == 0) {
+             return numCaixas * tipoCaixa.getVolume();
+         } else {
+             return -1.0;
+         }
+     }
     
     public String toString() {
         return nomeArtigo;

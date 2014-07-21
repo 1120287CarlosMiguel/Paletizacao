@@ -81,6 +81,7 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         volOcupadoTF = new javax.swing.JTextField();
         addButton = new javax.swing.JButton();
+        emptyButton = new javax.swing.JButton();
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -197,12 +198,20 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
         jLabel7.setToolTipText("Volume ocupada pela encomenda em m3");
 
         volOcupadoTF.setEditable(false);
+        volOcupadoTF.setText("0.00");
         volOcupadoTF.setToolTipText("Volume ocupada pela encomenda em m3");
 
         addButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/add.png"))); // NOI18N
         addButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 addButtonMouseClicked(evt);
+            }
+        });
+
+        emptyButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/empty.png"))); // NOI18N
+        emptyButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                emptyButtonMouseClicked(evt);
             }
         });
 
@@ -242,14 +251,16 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel3)
-                                        .addGap(330, 330, 330))
+                                        .addGap(330, 335, Short.MAX_VALUE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addGap(0, 0, Short.MAX_VALUE)
                                                 .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(eraseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(eraseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(emptyButton))
                                             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE))
                                         .addGap(12, 12, 12))))
                             .addComponent(jSeparator5))
@@ -261,8 +272,8 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(volCTextF, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
-                    .addComponent(volOcupadoTF))
+                    .addComponent(volCTextF)
+                    .addComponent(volOcupadoTF, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE))
                 .addGap(17, 17, 17)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -316,13 +327,16 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(22, 22, 22)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(eraseButton)
-                                    .addComponent(addButton)))))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(addButton)
+                                        .addComponent(emptyButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(eraseButton, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addContainerGap())))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
@@ -378,20 +392,16 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
      * @param evt 
      */
     private void eraseButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eraseButtonMouseClicked
-        int row = tabelaProdutos.getSelectedRow();
+        int[] rows = tabelaProdutos.getSelectedRows();
         
         DefaultTableModel mode = (DefaultTableModel) tabelaProdutos.getModel();
         
-        if(row == -1) {
+        if(rows.length == 0) {
             JOptionPane.showMessageDialog(null,"Nenhum artigo da tabela selecionada.","ERRO",JOptionPane.ERROR_MESSAGE);
         } else {
-            int rowC = mode.getRowCount();
-            //corrigir eliminacao de artigos!!!
-            for(int i = row;i<rowC;i++) {
-                  tabelaProdutos.setValueAt(tabelaProdutos.getValueAt(i,0), i-1, 0);
-                  tabelaProdutos.setValueAt(tabelaProdutos.getValueAt(i,1), i-1, 1);
-                  tabelaProdutos.setValueAt(tabelaProdutos.getValueAt(i,2), i-1, 2);
-                  mode.removeRow(i);
+            System.out.println("estou");
+            for(int i=rows.length-1;i>=0;i--) {
+               mode.removeRow(rows[i]);
             }
         }
     }//GEN-LAST:event_eraseButtonMouseClicked
@@ -403,6 +413,17 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
     private void addButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addButtonMouseClicked
         addArtigo();
     }//GEN-LAST:event_addButtonMouseClicked
+
+    
+    /**
+     * Metodo que apaga todos as linha da tabela.
+     * @param evt 
+     */
+    private void emptyButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_emptyButtonMouseClicked
+        DefaultTableModel mode = (DefaultTableModel)tabelaProdutos.getModel();
+        
+        mode.setNumRows(0);
+    }//GEN-LAST:event_emptyButtonMouseClicked
 
     /**
      * Metodo que adiciona o artigo a tabela.
@@ -475,6 +496,7 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JComboBox contentoresCB;
+    private javax.swing.JButton emptyButton;
     private javax.swing.JButton eraseButton;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;

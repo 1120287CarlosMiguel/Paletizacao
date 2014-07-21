@@ -20,12 +20,6 @@ public class Artigo {
     
     /**Caixa usada por este artigo */
     private Caixa tipoCaixa;
-  
-    /**Peso bruto do artigo em kilogramas*/
-    private double pesoBruto;
-    
-    /**Peso liquido do artigo em kilogramas*/
-    private double pesoLiquido;
     
     /**Gramas por cada unidade de artigo*/
     private double grUNI;
@@ -63,17 +57,13 @@ public class Artigo {
      * @param tipo tipo de artigo
      * @param numF numero de fieiras
      * @param cpf numero de caixas por fieira
-     * @param pl peso liquido do artigo
-     * @param pb peso bruto do artigo
      * @param gr gramas por unidade
      * @param uni unidades por caixa
      */
-    public Artigo(String nome,String cod, Caixa tipo,double pl, double pb, double gr, int uni) {
+    public Artigo(String nome,String cod, Caixa tipo,double gr, int uni) {
         this.nomeArtigo = nome;
         this.codArtigo = cod;
         this.tipoCaixa = tipo;
-        this.pesoBruto = pb;
-        this.pesoLiquido = pl;
         this.grUNI = gr;
         this.uniCaixa = uni;
     }

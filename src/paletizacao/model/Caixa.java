@@ -13,6 +13,9 @@ package paletizacao.model;
  */
 public class Caixa {
     
+    /**Descricao da caixa(nome*/
+    private String descricao;
+    
     /** codigo que identifica a caixa */
     private String codCaixa;
     
@@ -39,13 +42,15 @@ public class Caixa {
      * @param lg largura da caixa
      * @param cod codigo identificador da caixa
      * @param  kg peso da caixa
+     * @param des descricao da caixa
      */
-    public Caixa(double alt,double cmp, double lg, String cod,double kg) {
+    public Caixa(double alt,double cmp, double lg, String cod,double kg,String des) {
         this.altura=alt;
         this.comprimento = cmp;
         this.largura = lg;
         this.codCaixa = cod;
         this.peso = kg;
+        this.descricao = des;
     }
     
     /**

@@ -25,6 +25,7 @@ public class Paletizacao {
         
         Bootstrap boot = new Bootstrap();
         CalculaPercentagemUI ui = new CalculaPercentagemUI();
+        
     }
     
 }

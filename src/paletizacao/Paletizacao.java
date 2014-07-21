@@ -24,7 +24,7 @@ public class Paletizacao {
         // TODO code application logic here
         
         Bootstrap boot = new Bootstrap();
-        //CalculaPercentagemUI ui = new CalculaPercentagemUI();
+        CalculaPercentagemUI ui = new CalculaPercentagemUI();
     }
     
 }

@@ -20,13 +20,7 @@ public class Artigo {
     
     /**Caixa usada por este artigo */
     private Caixa tipoCaixa;
-    
-    /**Numero de caixas por cada camada */
-    private int caixaPorFiada;
-    
-    /**Numero de camadas na palete*/
-    private int numFiadas;
-
+  
     /**Peso bruto do artigo em kilogramas*/
     private double pesoBruto;
     
@@ -38,6 +32,9 @@ public class Artigo {
     
     /**Numero de artigos por cada caixa*/
     private int uniCaixa;
+    
+    /**Distribuicao de um artifo numa palete*/
+    private PaleteArtigo distribuicao;
     
     /**
      * Cria um novo artigo vazio. 
@@ -53,12 +50,10 @@ public class Artigo {
      * @param numF numero de fieiras
      * @param cpf numero de caixas por fieira
      */
-    public Artigo(String nome,String cod, Caixa tipo, int numF, int cpf) {
+    public Artigo(String nome,String cod, Caixa tipo) {
         this.nomeArtigo = nome;
         this.codArtigo = cod;
         this.tipoCaixa = tipo;
-        this.numFiadas = numF;
-        this.caixaPorFiada = cpf;
     }
     
     /**
@@ -73,12 +68,10 @@ public class Artigo {
      * @param gr gramas por unidade
      * @param uni unidades por caixa
      */
-    public Artigo(String nome,String cod, Caixa tipo, int numF, int cpf,double pl, double pb, double gr, int uni) {
+    public Artigo(String nome,String cod, Caixa tipo,double pl, double pb, double gr, int uni) {
         this.nomeArtigo = nome;
         this.codArtigo = cod;
         this.tipoCaixa = tipo;
-        this.numFiadas = numF;
-        this.caixaPorFiada = cpf;
         this.pesoBruto = pb;
         this.pesoLiquido = pl;
         this.grUNI = gr;
@@ -86,11 +79,19 @@ public class Artigo {
     }
     
     /**
+     * Define o atributo distribuicao
+     * @param p a distribuicao de um artigo numa palete
+     */
+    public void setDistribuicaoPalete(PaleteArtigo p) {
+        this.distribuicao = p;
+    }
+    
+    /**
      * Metodo que converte gramas do produto em unidades.
      * @param gram int com peso em gramas desejadas
      * @return int com unidades necessarias
      */
-    public double grToUnidade(double gram) {
+    public double gramasParaUnidade(double gram) {
         return gram/grUNI;
     }
     
@@ -101,8 +102,8 @@ public class Artigo {
      * @param gr int com peso em gramas para transportar
      * @return numero de caixas a transportar
      */
-     public double caixasPorGrama(double gr) {
-        return grToUnidade(gr)/this.uniCaixa;
+     public double gramasParaCaixas(double gr) {
+        return gramasParaUnidade(gr)/this.uniCaixa;
     }
     
      /**
@@ -113,7 +114,7 @@ public class Artigo {
       * @return double com o volume de caixas a ser encomendado
       */
      public double volumePorGrama(double gramas) {
-         double numCaixas = caixasPorGrama(gramas);
+         double numCaixas = gramasParaCaixas(gramas);
          if(numCaixas % 1 == 0) {
              return numCaixas * tipoCaixa.getVolume();
          } else {
@@ -129,7 +130,7 @@ public class Artigo {
       * @return double com o volume de caixas a ser encomendado
       */
      public double volumePorKiloGrama(double kg) {
-         double numCaixas = caixasPorGrama(kg * 1000);
+         double numCaixas = gramasParaCaixas(kg * 1000);
          if(numCaixas % 1 == 0) {
              return numCaixas * tipoCaixa.getVolume();
          } else {

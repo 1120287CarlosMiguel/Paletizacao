@@ -6,10 +6,10 @@
 
 package paletizacao.persistance.inmemory;
 
-import paletizacao.persistance.IArtigosRepository;
+import paletizacao.model.Mercado;
+import paletizacao.persistance.IMercadoRepository;
 import paletizacao.persistance.IContentorRepository;
 import paletizacao.persistance.IRepositoryFactory;
-import sun.security.jca.GetInstance;
 
 /**
  * Fabrica de repositorios.
@@ -40,14 +40,18 @@ public class InMemoryRepositoryFactory implements IRepositoryFactory{
     }
     
     /**
-     * Metodo que permite o acesso aos repositorios de artigos.
-     * @return repositorio de artigos
+     * Metodo que permite o acesso aos repositorios de mercados.
+     * @return repositorio de mercados
      */
     @Override
-    public IArtigosRepository getArtigosRepository() {
-        return new ArtigosRepository();
+    public IMercadoRepository getMercadoRepository() {
+        return new MercadoRepository();
     }
     
+    /**
+     * Metodo que permite o acesso aos repositorios de contentores.
+     * @return repositorio de contentores
+     */
     @Override
     public IContentorRepository getContentorRepository() {
         return new ContentorRepository();

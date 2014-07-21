@@ -9,25 +9,26 @@ package paletizacao.persistance.inmemory;
 import java.util.ArrayList;
 import java.util.List;
 import paletizacao.model.Artigo;
-import paletizacao.persistance.IArtigosRepository;
+import paletizacao.model.Mercado;
+import paletizacao.persistance.IMercadoRepository;
 
 /**
  * Repositorio de artigos.
  * Implementado de modo a haver apenas uma lista de artigos.
  * @author Mac
  */
-public class ArtigosRepository implements IArtigosRepository{
+public class MercadoRepository implements IMercadoRepository{
     
     /** lista de artigos */
-    private static List<Artigo> artigos = new ArrayList<Artigo>();
+    private static List<Mercado> mercados = new ArrayList<Mercado>();
 
      /**
      * Metodo para receber os artigos existentes.
      * @return lista com artigos
      */
     @Override
-    public List<Artigo> getAll() {
-        return artigos;
+    public List<Mercado> getAll() {
+        return mercados;
     }
 
     /**
@@ -36,8 +37,8 @@ public class ArtigosRepository implements IArtigosRepository{
      * @return true se for adicionado, false se nao for adicionado
      */
     @Override
-    public boolean add(Artigo art) {
-        artigos.add(art);
+    public boolean add(Mercado mc) {
+        mercados.add(mc);
         return true;
     }
     

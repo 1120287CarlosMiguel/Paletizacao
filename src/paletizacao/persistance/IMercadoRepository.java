@@ -8,24 +8,25 @@ package paletizacao.persistance;
 
 import java.util.List;
 import paletizacao.model.Artigo;
+import paletizacao.model.Mercado;
 
 /**
  * Interface a ser usada por repositorio de artigos.
  * @author Mac
  */
-public interface IArtigosRepository {
+public interface IMercadoRepository {
     
     /**
      * Metodo para receber os artigos existentes.
      * @return lista com artigos
      */
-    public List<Artigo> getAll();
+    public List<Mercado> getAll();
     
     /**
      * Metodo que permite adicionar novos artigos ao repositorio.
      * @param art artigo a ser adicionado na lista
      * @return true se for adicionado, false se nao for adicionado
      */
-    public boolean add(Artigo art);
+    public boolean add(Mercado mc);
     
 }

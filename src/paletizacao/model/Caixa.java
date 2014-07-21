@@ -16,10 +16,10 @@ public class Caixa {
     /** codigo que identifica a caixa */
     private String codCaixa;
     
-    /** altura da caixa em metros */
+    /** altura da caixa em metros*/
     private double altura;
     
-    /** comprimento da caixa em metros */
+    /** comprimento da caixa em metros*/
     private double comprimento;
     
     /** largura da caixa em metros*/

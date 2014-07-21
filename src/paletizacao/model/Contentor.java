@@ -16,13 +16,13 @@ public class Contentor {
     /**Nome do contentor */
     private String descricao;
     
-    /**Altura de um contento em cm*/
+    /**Altura de um contento em mm*/
     private double altura;
     
-    /**Comprimento de um contentor em cm */
+    /**Comprimento de um contentor em mm */
     private double comprimento;
     
-    /** largura de um contentor em cm */
+    /** largura de um contentor em mm */
     private double largura;
 
     /**
@@ -37,9 +37,9 @@ public class Contentor {
     /**
      *  Cria um novo contentor.
      * @param des nome do contentor
-     * @param cmp altura de um contentor em cm
-     * @param lg comprimento do contentor em cm
-     * @param alt larguram do contentor em cm
+     * @param cmp altura de um contentor em mm
+     * @param lg comprimento do contentor em mm
+     * @param alt larguram do contentor em mm
      */
     public Contentor(String des,double cmp,double lg, double alt) {
         this.descricao = des;
@@ -56,5 +56,14 @@ public class Contentor {
         return comprimento*largura*altura/1000000000;
     }
     
+    public String imprimeMedidas() {
+        return "Altura: "+this.altura/1000+
+               "\nComprimento: "+this.comprimento/1000+
+               "\nLargura: "+this.largura/1000;
+    }
+    
+    public String toString() {
+        return this.descricao;
+    }
     
 }

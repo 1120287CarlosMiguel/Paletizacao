@@ -13,10 +13,10 @@ package paletizacao.persistance;
 public interface IRepositoryFactory {
     
     /**
-     * Metodo que permite o acesso aos repositorios de artigos.
-     * @return repositorio de artigos
+     * Metodo que permite o acesso aos repositorios de mercados.
+     * @return repositorio de mercados
      */
-    public IArtigosRepository getArtigosRepository();
+    public IMercadoRepository getMercadoRepository();
     
     /**
      * Metodo que permite o acesso aos repositorios de contentores.

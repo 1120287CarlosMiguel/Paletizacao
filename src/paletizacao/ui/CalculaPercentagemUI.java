@@ -7,6 +7,9 @@
 package paletizacao.ui;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.DefaultListModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -97,6 +100,11 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                formMousePressed(evt);
+            }
+        });
 
         jLabel1.setText("Mercado:");
 
@@ -128,19 +136,29 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
         jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         tabelaProdutos.getTableHeader().setReorderingAllowed(false);
+
+        Action action = new AbstractAction()
+        {
+            public void actionPerformed(ActionEvent e) {
+                TableCellListener c1 = (TableCellListener) e.getSource();
+                alteraVolume();
+            }
+        };
+
+        TableCellListener tc1 = new TableCellListener(tabelaProdutos,action);
         tabelaProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Produto", "Gramas", "Kilogramas"
+                "Produto", "Kilogramas"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Double.class, java.lang.Double.class
+                java.lang.Object.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true
+                false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -158,8 +176,6 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
         if (tabelaProdutos.getColumnModel().getColumnCount() > 0) {
             tabelaProdutos.getColumnModel().getColumn(1).setResizable(false);
             tabelaProdutos.getColumnModel().getColumn(1).setPreferredWidth(1);
-            tabelaProdutos.getColumnModel().getColumn(2).setResizable(false);
-            tabelaProdutos.getColumnModel().getColumn(2).setPreferredWidth(1);
         }
 
         jLabel3.setText("Artigos:");
@@ -426,13 +442,23 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
     }//GEN-LAST:event_emptyButtonMouseClicked
 
     /**
+     * Quando carrega na JFrame desselecionar a lista e o artigo./
+     * @param evt 
+     */
+    private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
+        tabelaProdutos.getSelectionModel().clearSelection();
+        listaArtigos.clearSelection();
+        alteraVolume();
+    }//GEN-LAST:event_formMousePressed
+
+    /**
      * Metodo que adiciona o artigo a tabela.
      */
     private void addArtigo() {
         DefaultTableModel mode = (DefaultTableModel) tabelaProdutos.getModel();
 
         if(listaArtigos.getSelectedValue() != null) {
-            mode.addRow(new Object[3]);
+            mode.addRow(new Object[2]);
             Artigo art = (Artigo) listaArtigos.getSelectedValue();
             
             tabelaProdutos.setValueAt(art, mode.getRowCount()-1, 0);
@@ -491,6 +517,19 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
         volCTextF.setText(area);
     }
    
+    /**
+     * Metodod que altera o text field com o volume
+     */
+    private void alteraVolume() {
+        double volume = 0.0;
+        for(int i=0;i<tabelaProdutos.getRowCount()-1;i++) {
+            if(tabelaProdutos.getValueAt(i,1) != null) {
+                System.out.println(((Artigo)tabelaProdutos.getValueAt(i,0)).volumePorKiloGrama(Double.parseDouble(tabelaProdutos.getValueAt(i, 1).toString())));
+            }
+        }
+        System.out.println(Double.toString(volume));
+        
+    }
    
    
     // Variables declaration - do not modify//GEN-BEGIN:variables

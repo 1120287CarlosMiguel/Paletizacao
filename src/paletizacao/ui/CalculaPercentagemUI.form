@@ -39,6 +39,9 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="formMousePressed"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -305,9 +308,8 @@
         <Component class="javax.swing.JTable" name="tabelaProdutos">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="3" rowCount="0">
+              <Table columnCount="2" rowCount="0">
                 <Column editable="false" title="Produto" type="java.lang.Object"/>
-                <Column editable="true" title="Gramas" type="java.lang.Double"/>
                 <Column editable="true" title="Kilogramas" type="java.lang.Double"/>
               </Table>
             </Property>
@@ -315,11 +317,6 @@
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                  <Title/>
-                  <Editor/>
-                  <Renderer/>
-                </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="1" resizable="false">
                   <Title/>
                   <Editor/>
                   <Renderer/>
@@ -337,7 +334,7 @@
             </Property>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="tabelaProdutos.getTableHeader().setReorderingAllowed(false);"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="tabelaProdutos.getTableHeader().setReorderingAllowed(false);&#xa;&#xa;Action action = new AbstractAction() &#xa;{&#xa;    public void actionPerformed(ActionEvent e) {&#xa;        TableCellListener c1 = (TableCellListener) e.getSource();&#xa;        alteraVolume();&#xa;    }&#xa;};&#xa;&#xa;TableCellListener tc1 = new TableCellListener(tabelaProdutos,action);"/>
           </AuxValues>
         </Component>
       </SubComponents>

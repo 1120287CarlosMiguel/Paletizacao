@@ -82,7 +82,7 @@ public class Artigo {
      * @return int com unidades necessarias
      */
     public double gramasParaUnidade(double gram) {
-        return gram/grUNI;
+        return Math.floor(gram/grUNI);
     }
     
     /**
@@ -93,14 +93,25 @@ public class Artigo {
      * @return numero de caixas a transportar
      */
      public double gramasParaCaixas(double gr) {
-        return gramasParaUnidade(gr)/this.uniCaixa;
-    }
+        return Math.floor(gramasParaUnidade(gr)/this.uniCaixa);
+     }
+     
+     /**
+     * Metodo que converte o peso() em numero de caixas.
+     * Para obter o resultado didive se o numero de unidades a transportar pelo numero de caixas por unidade
+     * (valor a ser verificado se tem casas decimais ou nao)
+     * @param gr int com peso em gramas para transportar
+     * @return numero de caixas a transportar
+     */
+     public double kilogramaParaCaixas(double kg) {
+         return Math.floor(gramasParaUnidade(kg*1000.0)/this.uniCaixa);
+     }
     
      /**
-      * Metodo que converte o peso(gramas) da encomenda em volume das caixas.
+      * Metodo que converte o peso(kilogramas) da encomenda em volume das caixas.
       * Retorna -1 se o numero de caixas a ser usado nao for um inteiro, deste modo e feita a validacao para apenas ser possivel
       * encomendar uma quantidade certa.
-      * @param gramas peso em gramas da encomenda
+      * @param gramas peso em kilogramas da encomenda
       * @return double com o volume de caixas a ser encomendado
       */
      public double volumePorGrama(double gramas) {

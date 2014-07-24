@@ -8,6 +8,7 @@ package paletizacao;
 
 import paletizacao.model.Artigo;
 import paletizacao.model.Contentor;
+import paletizacao.model.Mercado;
 import paletizacao.persistance.inmemory.InMemoryRepositoryFactory;
 import paletizacao.ui.CalculaPercentagemUI;
 
@@ -25,6 +26,12 @@ public class Paletizacao {
         
         Bootstrap boot = new Bootstrap();
         CalculaPercentagemUI ui = new CalculaPercentagemUI();
+        
+//        for(Mercado m : InMemoryRepositoryFactory.getInstance().getMercadoRepository().getAll()) {
+//            for(Artigo a : m.getArtigos()) {
+//                System.out.println(Double.toString(a.gramasParaCaixas(5000)));
+//            }
+//        }
         
     }
     

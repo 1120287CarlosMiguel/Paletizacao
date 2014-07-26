@@ -417,7 +417,9 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
             volCTextF.setText(area);
         
             jLabel4.setToolTipText(((Contentor)contentoresCB.getSelectedItem()).imprimeMedidas());
-            contentoresCB.setToolTipText(((Contentor)contentoresCB.getSelectedItem()).imprimeMedidas());
+            contentoresCB.setToolTipText(((Contentor)contentoresCB.getSelectedItem()).imprimeMedidas());  
+            
+            alteraEstatisticas();
         }
     }//GEN-LAST:event_contentoresCBActionPerformed
 
@@ -433,22 +435,15 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
         if(rows.length == 0) {
             JOptionPane.showMessageDialog(null,"Nenhum artigo da tabela selecionada.","ERRO",JOptionPane.ERROR_MESSAGE);
         } else {
-            System.out.println("estou");
             for(int i=rows.length-1;i>=0;i--) {
                mode.removeRow(rows[i]);
             }
+            
+            controller.removeArtigos(rows);
         }
         
         alteraEstatisticas();
     }//GEN-LAST:event_eraseButtonMouseClicked
-
-    /**
-     * Metodo que verifica se addButton foi clicado para adicionar o artigo selecionado
-     * @param evt 
-     */
-    private void addButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addButtonMouseClicked
-        addArtigo();
-    }//GEN-LAST:event_addButtonMouseClicked
 
     
     /**
@@ -459,6 +454,7 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
         DefaultTableModel mode = (DefaultTableModel)tabelaProdutos.getModel();
         
         mode.setNumRows(0);
+        controller.removeArtigos();
         
         alteraEstatisticas();
     }//GEN-LAST:event_emptyButtonMouseClicked
@@ -474,17 +470,30 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
     }//GEN-LAST:event_formMousePressed
 
     /**
-     * Metodo que adiciona o artigo a tabela.
+     * Metodo que verifica se addButton foi clicado para adicionar o artigo selecionado
+     * @param evt 
+     */
+    private void addButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addButtonMouseClicked
+        addArtigo();
+    }//GEN-LAST:event_addButtonMouseClicked
+
+    /**
+     * Metodo que adiciona o artigo a tabela e ao mapa de artigos do controller.
      */
     private void addArtigo() {
         DefaultTableModel mode = (DefaultTableModel) tabelaProdutos.getModel();
 
         if(listaArtigos.getSelectedValue() != null) {
-            mode.addRow(new Object[2]);
             Artigo art = (Artigo) listaArtigos.getSelectedValue();
             
-            tabelaProdutos.setValueAt(art, mode.getRowCount()-1, 0);
-            tabelaProdutos.setValueAt(0, mode.getRowCount()-1, 2);
+            if(controller.addArtigo(art, new Double(0))) {
+                mode.addRow(new Object[2]);
+                tabelaProdutos.setValueAt(art, mode.getRowCount()-1, 0);
+                tabelaProdutos.setValueAt(0, mode.getRowCount()-1, 2);
+            } else {
+               JOptionPane.showMessageDialog(null, "Artigo ja existente na tabela", "ERRO", JOptionPane.ERROR_MESSAGE);
+            }
+            
         } else {
             JOptionPane.showMessageDialog(null,"Nenhum artigo da lista selecionado.","ERRO",JOptionPane.ERROR_MESSAGE);
         }
@@ -544,15 +553,18 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
      * Metodo que altera o text field com o volume, adiciona o numero de caixas completas na celula e calcula percentagem de ocupacao
      */
     private void alteraEstatisticas() {
-        double volume = calculaVolumeArtigos();        
+            double volume = calculaVolumeArtigos();        
     
         try {
-            if(volume / controller.getDoubleVolumeContentor() * 100 > 100) {
+            if(controller.getPercentagemOcupacao() < 0) {
                         JOptionPane.showMessageDialog(null, "Ocupação de contentor ultrapassada", "ERRO", JOptionPane.ERROR_MESSAGE);
                         int row = tabelaProdutos.getSelectedRow();
                         
                         tabelaProdutos.setValueAt(null, row, 1);
                         tabelaProdutos.setValueAt(0, row, 2);
+                        
+                        controller.alteraQuantidadeArtigo((Artigo)tabelaProdutos.getValueAt(row, 0),0.0);
+                        
                         volume = calculaVolumeArtigos();
             } 
         } catch (ParseException e) {
@@ -576,16 +588,19 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
         
         for(int i=0;i<mode.getRowCount();i++) {
             
-            if(tabelaProdutos.getValueAt(i,1) != null) {
+            if(tabelaProdutos.getValueAt(i,1) != null && ((Double)tabelaProdutos.getValueAt(i,1)).doubleValue() >= 0) {
                 double kg = Double.parseDouble(tabelaProdutos.getValueAt(i,1).toString());
                 double caixas = ((Artigo)tabelaProdutos.getValueAt(i, 0)).kilogramaParaCaixas(kg);
                 tabelaProdutos.setValueAt(caixas, i, 2);
+                controller.alteraQuantidadeArtigo((Artigo)tabelaProdutos.getValueAt(i, 0), kg);
                 
-                if(Double.parseDouble(tabelaProdutos.getValueAt(i, 2).toString()) != 0.0) {
-                    volume += ((Artigo)tabelaProdutos.getValueAt(i, 0)).volumePorKiloGrama(kg);
-                }
+            } else if(tabelaProdutos.getValueAt(i,1) != null && ((Double)tabelaProdutos.getValueAt(i,1)).doubleValue() < 0){
+                  JOptionPane.showMessageDialog(null, "Quantidade de artigo inválida", "ERRO", JOptionPane.ERROR_MESSAGE);
+                  tabelaProdutos.setValueAt(null, tabelaProdutos.getSelectedRow(), 1);  
             }
         }
+        
+        volume = controller.getVolumeEncomenda();
         
         return volume;
     }

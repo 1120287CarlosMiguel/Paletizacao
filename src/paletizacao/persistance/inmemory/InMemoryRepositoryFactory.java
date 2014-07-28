@@ -9,6 +9,7 @@ package paletizacao.persistance.inmemory;
 import paletizacao.model.Mercado;
 import paletizacao.persistance.IMercadoRepository;
 import paletizacao.persistance.IContentorRepository;
+import paletizacao.persistance.IPaleteRepository;
 import paletizacao.persistance.IRepositoryFactory;
 
 /**
@@ -55,6 +56,11 @@ public class InMemoryRepositoryFactory implements IRepositoryFactory{
     @Override
     public IContentorRepository getContentorRepository() {
         return new ContentorRepository();
+    }
+
+    @Override
+    public IPaleteRepository getPaleteRepository() {
+        return new PaleteRepository();
     }
     
 }

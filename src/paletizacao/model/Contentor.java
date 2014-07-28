@@ -50,10 +50,19 @@ public class Contentor {
     
     /**
      * Metodo que calcula o volume do contentor em m3
-     * @return vol em m3
+     * @return double, volume em m3 total do contento
      */
     public double getVolume() {
         return comprimento*largura*altura/1000000000;
+    }
+    
+    /**
+     * Método que calcula o volume do contentor com uma margem de altura(palete).
+     * @param alt, margem de altura para calcular o volume
+     * @return double, volume em m3 a ser ocupado pela encomenda
+     */
+    public double getVolume(double alt) {
+        return comprimento*largura*(altura-alt*1000)/1000000000;
     }
     
     public String imprimeMedidas() {

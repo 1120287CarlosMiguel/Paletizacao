@@ -26,6 +26,7 @@ import paletizacao.controller.CalculaPercentagemController;
 import paletizacao.model.Artigo;
 import paletizacao.model.Contentor;
 import paletizacao.model.Mercado;
+import paletizacao.model.Palete;
 import paletizacao.persistance.inmemory.InMemoryRepositoryFactory;
 
 /**
@@ -34,11 +35,14 @@ import paletizacao.persistance.inmemory.InMemoryRepositoryFactory;
  */
 public class CalculaPercentagemUI extends javax.swing.JFrame {
     
+    /**Controller que perminte a interacao com o modelo de dominio*/
     private CalculaPercentagemController controller;
     
     private boolean ignoreArtigo = true;
     
     private boolean ignoreContentor = true;
+    
+    private boolean ignoreErase = false;
     
     /**
      * Creates new form CalculaPercentagemUI
@@ -47,8 +51,9 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
         initComponents();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        controller = new CalculaPercentagemController(volCTextF, volOcupadoTF);
+        controller = new CalculaPercentagemController(volContPalTF, volOcupadoTF);
         preencherMercado();
+        preencherPalete();
         preencherContentor();
         setVisible(true);
     }
@@ -93,6 +98,8 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
         emptyButton = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         percentagemOcupacaoTF = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        volContPalTF = new javax.swing.JTextField();
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -241,9 +248,22 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
         });
 
         jLabel8.setText("% Ocupação");
+        jLabel8.setToolTipText("Percentagem de ocupacao da encomenda incluindo as paletes");
 
         percentagemOcupacaoTF.setEditable(false);
         percentagemOcupacaoTF.setText("0.00 %");
+        percentagemOcupacaoTF.setToolTipText("Percentagem de ocupacao da encomenda incluindo as paletes");
+
+        jLabel9.setText("Vol. Cont. com Palete");
+        jLabel9.setToolTipText("volume do contentor sem a altura da palete");
+
+        volContPalTF.setEditable(false);
+        volContPalTF.setToolTipText("volume do contentor sem a altura da palete");
+        volContPalTF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                volContPalTFActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -256,55 +276,61 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
                             .addComponent(contentoresCB, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(50, 50, 50)
                         .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tipoPaleteCB, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
-                        .addGap(160, 160, 160))
+                        .addGap(128, 128, 128))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel1)
                                     .addComponent(jScrollPane1)
-                                    .addComponent(mercadoCB, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel2)
-                                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel1))
-                                        .addGap(0, 6, Short.MAX_VALUE)))
+                                    .addComponent(mercadoCB, 0, 273, Short.MAX_VALUE)
+                                    .addComponent(jSeparator1))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addGap(330, 335, Short.MAX_VALUE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
                                         .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(eraseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(emptyButton))
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                             .addComponent(jSeparator5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(volCTextF)
-                    .addComponent(volOcupadoTF, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
-                    .addComponent(percentagemOcupacaoTF))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(49, 49, 49)
+                                .addComponent(volCTextF, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(volOcupadoTF, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(percentagemOcupacaoTF, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(volContPalTF)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -324,13 +350,10 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel5))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(contentoresCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(tipoPaleteCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(contentoresCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tipoPaleteCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(jSeparator8))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -342,14 +365,15 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
                                     .addComponent(jLabel1))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(6, 6, 6)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
+                                                .addGap(0, 0, Short.MAX_VALUE)
                                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(addButton)
@@ -365,20 +389,24 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
                                                 .addComponent(jScrollPane1)))
                                         .addContainerGap())))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(jSeparator4)
+                                .addContainerGap())))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
                             .addComponent(volCTextF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(volOcupadoTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))
+                            .addComponent(jLabel9)
+                            .addComponent(volContPalTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(percentagemOcupacaoTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))
+                            .addComponent(jLabel7)
+                            .addComponent(volOcupadoTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(percentagemOcupacaoTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jSeparator6)))
         );
@@ -416,10 +444,15 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
             String area = String.format("%.2f",((Contentor)contentoresCB.getSelectedItem()).getVolume());
             volCTextF.setText(area);
         
+            area = String.format("%.2f",((Contentor)contentoresCB.getSelectedItem()).getVolume(getAlturaPaleteSelecionada()));
+            volContPalTF.setText(area);
+            
             jLabel4.setToolTipText(((Contentor)contentoresCB.getSelectedItem()).imprimeMedidas());
             contentoresCB.setToolTipText(((Contentor)contentoresCB.getSelectedItem()).imprimeMedidas());  
             
+            ignoreErase = true;
             alteraEstatisticas();
+            ignoreErase = false;
         }
     }//GEN-LAST:event_contentoresCBActionPerformed
 
@@ -442,7 +475,9 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
             controller.removeArtigos(rows);
         }
         
+        ignoreErase = true;
         alteraEstatisticas();
+        ignoreErase = false;
     }//GEN-LAST:event_eraseButtonMouseClicked
 
     
@@ -456,7 +491,9 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
         mode.setNumRows(0);
         controller.removeArtigos();
         
+        ignoreErase = true;
         alteraEstatisticas();
+        ignoreErase = false;
     }//GEN-LAST:event_emptyButtonMouseClicked
 
     /**
@@ -466,7 +503,10 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
     private void formMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMousePressed
         tabelaProdutos.getSelectionModel().clearSelection();
         listaArtigos.clearSelection();
+        
+        ignoreErase = true;
         alteraEstatisticas();
+        ignoreErase = false;
     }//GEN-LAST:event_formMousePressed
 
     /**
@@ -476,6 +516,10 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
     private void addButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addButtonMouseClicked
         addArtigo();
     }//GEN-LAST:event_addButtonMouseClicked
+
+    private void volContPalTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volContPalTFActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_volContPalTFActionPerformed
 
     /**
      * Metodo que adiciona o artigo a tabela e ao mapa de artigos do controller.
@@ -547,23 +591,49 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
         
         String area = String.format("%.2f",((Contentor)contentoresCB.getSelectedItem()).getVolume());
         volCTextF.setText(area);
+        area = String.format("%.2f",((Contentor)contentoresCB.getSelectedItem()).getVolume(getAlturaPaleteSelecionada()));
+        volContPalTF.setText(area);
+        
+    }
+    
+    /**
+    Metodo que preenche a combo box com as paletes existentes.
+     */
+    private void preencherPalete() {
+        tipoPaleteCB.removeAllItems();
+        
+        for(Palete pal : controller.getListaPalete()) {
+            tipoPaleteCB.addItem(pal);
+        }
+        
+        tipoPaleteCB.setSelectedIndex(0);
     }
    
     /**
      * Metodo que altera o text field com o volume, adiciona o numero de caixas completas na celula e calcula percentagem de ocupacao
      */
     private void alteraEstatisticas() {
-            double volume = calculaVolumeArtigos();        
-    
+        int row = 0;
+        Artigo alter = null;
+        double kgTemp = 0;
+        
+        if(!ignoreErase) {
+            row = tabelaProdutos.getSelectedRow();
+            alter = (Artigo)tabelaProdutos.getValueAt(row, 0);
+        
+            kgTemp = controller.getQuantidadeArtig(alter);
+        }    
+           
+        double volume = calculaVolumeArtigos();        
+         
         try {
             if(controller.getPercentagemOcupacao() < 0) {
                         JOptionPane.showMessageDialog(null, "Ocupação de contentor ultrapassada", "ERRO", JOptionPane.ERROR_MESSAGE);
-                        int row = tabelaProdutos.getSelectedRow();
                         
-                        tabelaProdutos.setValueAt(null, row, 1);
-                        tabelaProdutos.setValueAt(0, row, 2);
+                        tabelaProdutos.setValueAt(kgTemp, row, 1);
+                        tabelaProdutos.setValueAt(alter.kilogramaParaCaixas(kgTemp), row, 2);
                         
-                        controller.alteraQuantidadeArtigo((Artigo)tabelaProdutos.getValueAt(row, 0),0.0);
+                        controller.alteraQuantidadeArtigo(alter,kgTemp);
                         
                         volume = calculaVolumeArtigos();
             } 
@@ -596,7 +666,8 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
                 
             } else if(tabelaProdutos.getValueAt(i,1) != null && ((Double)tabelaProdutos.getValueAt(i,1)).doubleValue() < 0){
                   JOptionPane.showMessageDialog(null, "Quantidade de artigo inválida", "ERRO", JOptionPane.ERROR_MESSAGE);
-                  tabelaProdutos.setValueAt(null, tabelaProdutos.getSelectedRow(), 1);  
+                  tabelaProdutos.setValueAt(controller.getQuantidadeArtig((Artigo)tabelaProdutos.getValueAt(i, 0)), tabelaProdutos.getSelectedRow(), 1); 
+                  
             }
         }
         
@@ -605,6 +676,14 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
         return volume;
     }
    
+    /**
+     * Metodo que retorna a altura a partir da palete escolhida.
+     * @return double, altura da palete em m
+     */
+    public double getAlturaPaleteSelecionada() {
+        Palete pal = (Palete)tipoPaleteCB.getSelectedItem();
+        return pal.getAltura();
+    }
    
     
     
@@ -622,6 +701,7 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -639,6 +719,7 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
     private javax.swing.JTable tabelaProdutos;
     private javax.swing.JComboBox tipoPaleteCB;
     private javax.swing.JTextField volCTextF;
+    private javax.swing.JTextField volContPalTF;
     private javax.swing.JTextField volOcupadoTF;
     // End of variables declaration//GEN-END:variables
 }

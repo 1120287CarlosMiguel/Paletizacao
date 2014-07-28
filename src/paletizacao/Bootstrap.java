@@ -5,6 +5,8 @@ import paletizacao.model.Artigo;
 import paletizacao.model.Caixa;
 import paletizacao.model.Contentor;
 import paletizacao.model.Mercado;
+import paletizacao.model.Palete;
+import paletizacao.model.TipoPalete;
 import paletizacao.persistance.IMercadoRepository;
 import paletizacao.persistance.inmemory.MercadoRepository;
 import paletizacao.persistance.inmemory.InMemoryRepositoryFactory;
@@ -93,6 +95,12 @@ public class Bootstrap {
         InMemoryRepositoryFactory.getInstance().getMercadoRepository().add(m1);
         InMemoryRepositoryFactory.getInstance().getMercadoRepository().add(m2);
         InMemoryRepositoryFactory.getInstance().getMercadoRepository().add(m3);
+        
+        Palete p1 = new Palete(TipoPalete.EUROPALETE, 0.15);
+        Palete p2 = new Palete(TipoPalete.PAL_INDUSTRIALRF20, 0.15);
+        
+        InMemoryRepositoryFactory.getInstance().getPaleteRepository().add(p1);
+        InMemoryRepositoryFactory.getInstance().getPaleteRepository().add(p2);
         
         
         

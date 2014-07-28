@@ -24,4 +24,10 @@ public interface IRepositoryFactory {
      */
     public IContentorRepository getContentorRepository();
     
+    /**
+     * Metodo que permite o acesso aos repositorios de paletes.
+     * @return repositorio de paletes
+     */
+    public IPaleteRepository getPaleteRepository();
+    
 }

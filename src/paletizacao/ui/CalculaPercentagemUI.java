@@ -24,9 +24,9 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 import paletizacao.controller.CalculaPercentagemController;
 import paletizacao.model.Artigo;
-import paletizacao.model.Contentor;
+import paletizacao.model.TipoContentor;
 import paletizacao.model.Mercado;
-import paletizacao.model.Palete;
+import paletizacao.model.TipoPalete;
 import paletizacao.persistance.inmemory.InMemoryRepositoryFactory;
 
 /**
@@ -42,7 +42,9 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
     
     private boolean ignoreContentor = true;
     
-    private boolean ignoreErase = false;
+    private boolean ignorePalete = true;
+    
+    private boolean isErase = false;
     
     /**
      * Creates new form CalculaPercentagemUI
@@ -210,6 +212,11 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
         jLabel5.setText("Tipo Palete:");
 
         tipoPaleteCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        tipoPaleteCB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tipoPaleteCBActionPerformed(evt);
+            }
+        });
 
         jSeparator8.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -259,11 +266,6 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
 
         volContPalTF.setEditable(false);
         volContPalTF.setToolTipText("volume do contentor sem a altura da palete");
-        volContPalTF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                volContPalTFActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -365,7 +367,7 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
                                     .addComponent(jLabel1))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(6, 6, 6)
@@ -441,18 +443,18 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
      */
     private void contentoresCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contentoresCBActionPerformed
         if(!ignoreContentor) {
-            String area = String.format("%.2f",((Contentor)contentoresCB.getSelectedItem()).getVolume());
+            String area = String.format("%.2f",((TipoContentor)contentoresCB.getSelectedItem()).getVolume());
             volCTextF.setText(area);
         
-            area = String.format("%.2f",((Contentor)contentoresCB.getSelectedItem()).getVolume(getAlturaPaleteSelecionada()));
+            area = String.format("%.2f",((TipoContentor)contentoresCB.getSelectedItem()).getVolume(getAlturaPaleteSelecionada()));
             volContPalTF.setText(area);
             
-            jLabel4.setToolTipText(((Contentor)contentoresCB.getSelectedItem()).imprimeMedidas());
-            contentoresCB.setToolTipText(((Contentor)contentoresCB.getSelectedItem()).imprimeMedidas());  
+            jLabel4.setToolTipText(((TipoContentor)contentoresCB.getSelectedItem()).imprimeMedidas());
+            contentoresCB.setToolTipText(((TipoContentor)contentoresCB.getSelectedItem()).imprimeMedidas());  
             
-            ignoreErase = true;
+            isErase = true;
             alteraEstatisticas();
-            ignoreErase = false;
+            isErase = false;
         }
     }//GEN-LAST:event_contentoresCBActionPerformed
 
@@ -475,9 +477,9 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
             controller.removeArtigos(rows);
         }
         
-        ignoreErase = true;
+        isErase = true;
         alteraEstatisticas();
-        ignoreErase = false;
+        isErase = false;
     }//GEN-LAST:event_eraseButtonMouseClicked
 
     
@@ -491,9 +493,9 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
         mode.setNumRows(0);
         controller.removeArtigos();
         
-        ignoreErase = true;
+        isErase = true;
         alteraEstatisticas();
-        ignoreErase = false;
+        isErase = false;
     }//GEN-LAST:event_emptyButtonMouseClicked
 
     /**
@@ -504,9 +506,9 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
         tabelaProdutos.getSelectionModel().clearSelection();
         listaArtigos.clearSelection();
         
-        ignoreErase = true;
+        isErase = true;
         alteraEstatisticas();
-        ignoreErase = false;
+        isErase = false;
     }//GEN-LAST:event_formMousePressed
 
     /**
@@ -517,9 +519,16 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
         addArtigo();
     }//GEN-LAST:event_addButtonMouseClicked
 
-    private void volContPalTFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_volContPalTFActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_volContPalTFActionPerformed
+    private void tipoPaleteCBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoPaleteCBActionPerformed
+        if(!ignorePalete) {
+            String area = String.format("%.2f",((TipoContentor)contentoresCB.getSelectedItem()).getVolume(getAlturaPaleteSelecionada()));
+            volContPalTF.setText(area);
+            
+            isErase = true;
+            alteraEstatisticas();
+            isErase = false;
+        }
+    }//GEN-LAST:event_tipoPaleteCBActionPerformed
 
     /**
      * Metodo que adiciona o artigo a tabela e ao mapa de artigos do controller.
@@ -579,19 +588,19 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
     private void preencherContentor() {
         contentoresCB.removeAllItems();
         
-        for(Contentor c : controller.getListaContentor()) {
+        for(TipoContentor c : controller.getListaContentor()) {
             contentoresCB.addItem(c);
         }
         
         contentoresCB.setSelectedIndex(0);
-        jLabel4.setToolTipText(((Contentor)contentoresCB.getSelectedItem()).imprimeMedidas());
-        contentoresCB.setToolTipText(((Contentor)contentoresCB.getSelectedItem()).imprimeMedidas());
+        jLabel4.setToolTipText(((TipoContentor)contentoresCB.getSelectedItem()).imprimeMedidas());
+        contentoresCB.setToolTipText(((TipoContentor)contentoresCB.getSelectedItem()).imprimeMedidas());
         
         ignoreContentor = false;
         
-        String area = String.format("%.2f",((Contentor)contentoresCB.getSelectedItem()).getVolume());
+        String area = String.format("%.2f",((TipoContentor)contentoresCB.getSelectedItem()).getVolume());
         volCTextF.setText(area);
-        area = String.format("%.2f",((Contentor)contentoresCB.getSelectedItem()).getVolume(getAlturaPaleteSelecionada()));
+        area = String.format("%.2f",((TipoContentor)contentoresCB.getSelectedItem()).getVolume(getAlturaPaleteSelecionada()));
         volContPalTF.setText(area);
         
     }
@@ -602,11 +611,12 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
     private void preencherPalete() {
         tipoPaleteCB.removeAllItems();
         
-        for(Palete pal : controller.getListaPalete()) {
+        for(TipoPalete pal : controller.getListaPalete()) {
             tipoPaleteCB.addItem(pal);
         }
         
         tipoPaleteCB.setSelectedIndex(0);
+        ignorePalete = false;
     }
    
     /**
@@ -617,7 +627,7 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
         Artigo alter = null;
         double kgTemp = 0;
         
-        if(!ignoreErase) {
+        if(!isErase) {
             row = tabelaProdutos.getSelectedRow();
             alter = (Artigo)tabelaProdutos.getValueAt(row, 0);
         
@@ -681,7 +691,7 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
      * @return double, altura da palete em m
      */
     public double getAlturaPaleteSelecionada() {
-        Palete pal = (Palete)tipoPaleteCB.getSelectedItem();
+        TipoPalete pal = (TipoPalete)tipoPaleteCB.getSelectedItem();
         return pal.getAltura();
     }
    

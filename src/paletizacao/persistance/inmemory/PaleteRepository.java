@@ -8,7 +8,7 @@ package paletizacao.persistance.inmemory;
 
 import java.util.ArrayList;
 import java.util.List;
-import paletizacao.model.Palete;
+import paletizacao.model.TipoPalete;
 import paletizacao.persistance.IPaleteRepository;
 
 /**
@@ -17,19 +17,19 @@ import paletizacao.persistance.IPaleteRepository;
  */
 public class PaleteRepository implements IPaleteRepository{
 
-    private static List<Palete> listaPaletes = new ArrayList<Palete>();
+    private static List<TipoPalete> listaPaletes = new ArrayList<TipoPalete>();
     
     public PaleteRepository() {
         
     }
     
     @Override
-    public List<Palete> getAll() {
+    public List<TipoPalete> getAll() {
         return listaPaletes;
     }
 
     @Override
-    public boolean add(Palete pal) {
+    public boolean add(TipoPalete pal) {
         listaPaletes.add(pal);
         return true;
     }

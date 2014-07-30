@@ -11,7 +11,7 @@ package paletizacao.model;
  * Utilizado para saber o volume de espaco maximo a utilizar.
  * @author Mac
  */
-public class Contentor {
+public class TipoContentor {
     
     /**Nome do contentor */
     private String descricao;
@@ -28,7 +28,7 @@ public class Contentor {
     /**
      * Cria um novo contentor.
      */
-    public Contentor() {
+    public TipoContentor() {
         this.altura=0.0;
         this.comprimento = 0.0;
         this.largura = 0.0;
@@ -41,7 +41,7 @@ public class Contentor {
      * @param lg comprimento do contentor em mm
      * @param alt larguram do contentor em mm
      */
-    public Contentor(String des,double cmp,double lg, double alt) {
+    public TipoContentor(String des,double cmp,double lg, double alt) {
         this.descricao = des;
         this.altura=alt;
         this.comprimento = cmp;

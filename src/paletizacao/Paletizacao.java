@@ -7,9 +7,9 @@
 package paletizacao;
 
 import paletizacao.model.Artigo;
-import paletizacao.model.Contentor;
+import paletizacao.model.TipoContentor;
 import paletizacao.model.Mercado;
-import paletizacao.model.TipoPalete;
+import paletizacao.model.DescricaoPalete;
 import paletizacao.persistance.inmemory.InMemoryRepositoryFactory;
 import paletizacao.ui.CalculaPercentagemUI;
 

@@ -15,7 +15,7 @@ import sun.security.krb5.internal.Ticket;
 public class PaleteArtigo {
     
      /**Tipo de palete da distribuicao*/
-     private Palete palete;
+     private TipoPalete palete;
 
      /**Numero de caixas por cada fiada(camada)*/
      private int cxFiada;
@@ -36,7 +36,7 @@ public class PaleteArtigo {
      * @param c numero de caixas por cada fiada
      * @param f numero de fiadas por palete
      */
-    public PaleteArtigo(Palete t, int c, int f) {
+    public PaleteArtigo(TipoPalete t, int c, int f) {
         this.palete = t;
         this.cxFiada = c;
         this.fiadaPal = f;

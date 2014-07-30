@@ -3,10 +3,10 @@ package paletizacao;
 
 import paletizacao.model.Artigo;
 import paletizacao.model.Caixa;
-import paletizacao.model.Contentor;
+import paletizacao.model.TipoContentor;
 import paletizacao.model.Mercado;
-import paletizacao.model.Palete;
 import paletizacao.model.TipoPalete;
+import paletizacao.model.DescricaoPalete;
 import paletizacao.persistance.IMercadoRepository;
 import paletizacao.persistance.inmemory.MercadoRepository;
 import paletizacao.persistance.inmemory.InMemoryRepositoryFactory;
@@ -25,13 +25,13 @@ public class Bootstrap {
     
     public Bootstrap() {
         //contentores criados
-        Contentor con1 = new Contentor("REEFER 20´´ Std",5451,2290,2167);
-        Contentor con2 = new Contentor("REEFER 40´´ High icube",11580,2275,2415);
-        Contentor con3 = new Contentor("REEFER 40´´ High starfresh",11578,2280,2425);
-        Contentor con4 = new Contentor("REEFER 40´´ High starfresh plus",11578,2280,2425);
-        Contentor con5 = new Contentor("REEFER 40´´ Magnum",11578,2280,2450);
-        Contentor con6 = new Contentor("REEFER 40´´ High starVent",11578,2268,2426);
-        Contentor con7 = new Contentor("REEFER 40´´ High superfreezer",11578,2188,2380);
+        TipoContentor con1 = new TipoContentor("REEFER 20´´ Std",5451,2290,2167);
+        TipoContentor con2 = new TipoContentor("REEFER 40´´ High icube",11580,2275,2415);
+        TipoContentor con3 = new TipoContentor("REEFER 40´´ High starfresh",11578,2280,2425);
+        TipoContentor con4 = new TipoContentor("REEFER 40´´ High starfresh plus",11578,2280,2425);
+        TipoContentor con5 = new TipoContentor("REEFER 40´´ Magnum",11578,2280,2450);
+        TipoContentor con6 = new TipoContentor("REEFER 40´´ High starVent",11578,2268,2426);
+        TipoContentor con7 = new TipoContentor("REEFER 40´´ High superfreezer",11578,2188,2380);
         
         InMemoryRepositoryFactory.getInstance().getContentorRepository().save(con1);
         InMemoryRepositoryFactory.getInstance().getContentorRepository().save(con2);
@@ -96,8 +96,8 @@ public class Bootstrap {
         InMemoryRepositoryFactory.getInstance().getMercadoRepository().add(m2);
         InMemoryRepositoryFactory.getInstance().getMercadoRepository().add(m3);
         
-        Palete p1 = new Palete(TipoPalete.EUROPALETE, 0.15);
-        Palete p2 = new Palete(TipoPalete.PAL_INDUSTRIALRF20, 0.15);
+        TipoPalete p1 = new TipoPalete(DescricaoPalete.EUROPALETE, 0.15);
+        TipoPalete p2 = new TipoPalete(DescricaoPalete.PAL_INDUSTRIALRF20, 0.16);
         
         InMemoryRepositoryFactory.getInstance().getPaleteRepository().add(p1);
         InMemoryRepositoryFactory.getInstance().getPaleteRepository().add(p2);

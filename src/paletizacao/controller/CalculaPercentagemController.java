@@ -15,10 +15,10 @@ import java.util.Map;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import paletizacao.model.Artigo;
-import paletizacao.model.Contentor;
+import paletizacao.model.TipoContentor;
 import paletizacao.model.MapaArtigos;
 import paletizacao.model.Mercado;
-import paletizacao.model.Palete;
+import paletizacao.model.TipoPalete;
 import paletizacao.persistance.inmemory.InMemoryRepositoryFactory;
 
 /**
@@ -59,7 +59,7 @@ public class CalculaPercentagemController {
      * Método para ir buscar a lista dos contentores existentes.
      * @return lista de contentores
      */
-    public List<Contentor> getListaContentor() {
+    public List<TipoContentor> getListaContentor() {
         return InMemoryRepositoryFactory.getInstance().getContentorRepository().getAll();
     }
     
@@ -67,7 +67,7 @@ public class CalculaPercentagemController {
      * Método para ir buscar a lista das paletes existentes.
      * @return lista de paletes
      */
-    public List<Palete> getListaPalete() {
+    public List<TipoPalete> getListaPalete() {
         return InMemoryRepositoryFactory.getInstance().getPaleteRepository().getAll();
     }
     
@@ -163,7 +163,7 @@ public class CalculaPercentagemController {
     
     /**
      * Método que caclula a percentagem de ocupacao, usando o volume do contentor 
-     * do textField volumeContentor e com o volume da encomenda.
+ do textField volumeTipoContentor e com o volume da encomenda.
      * @return double, percentagem da ocup
      * @throws ParseException 
      */

@@ -7,7 +7,7 @@
 package paletizacao.persistance;
 
 import java.util.List;
-import paletizacao.model.Palete;
+import paletizacao.model.TipoPalete;
 
 /**
  * Interface a ser usada pelos repositorios de paletes concretos.
@@ -19,13 +19,13 @@ public interface IPaleteRepository {
      * Metodo para receber as paletes existentes.
      * @return lista com paletes
      */
-    public List<Palete> getAll();
+    public List<TipoPalete> getAll();
     
     /**
      * Metodo que permite adicionar novas paletes ao repositorio.
      * @param pal palete a ser adicionado na lista
      * @return true se for adicionado, false se nao for adicionado
      */
-    public boolean add(Palete pal);
+    public boolean add(TipoPalete pal);
     
 }

@@ -8,7 +8,7 @@ package paletizacao.persistance.inmemory;
 
 import java.util.ArrayList;
 import java.util.List;
-import paletizacao.model.Contentor;
+import paletizacao.model.TipoContentor;
 import paletizacao.persistance.IContentorRepository;
 
 /**
@@ -17,19 +17,19 @@ import paletizacao.persistance.IContentorRepository;
  */
 class ContentorRepository implements IContentorRepository {
 
-    private static List<Contentor> rep = new ArrayList<Contentor>();
+    private static List<TipoContentor> rep = new ArrayList<TipoContentor>();
     
     public ContentorRepository() {
     }
 
     @Override
-    public boolean save(Contentor c) {
+    public boolean save(TipoContentor c) {
         rep.add(c);
         return true;
     }
 
     @Override
-    public List<Contentor> getAll() {
+    public List<TipoContentor> getAll() {
         return rep;
     }
     

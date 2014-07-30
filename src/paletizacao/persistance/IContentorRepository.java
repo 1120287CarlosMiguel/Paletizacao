@@ -7,7 +7,7 @@
 package paletizacao.persistance;
 
 import java.util.List;
-import paletizacao.model.Contentor;
+import paletizacao.model.TipoContentor;
 
 /**
  *
@@ -15,8 +15,8 @@ import paletizacao.model.Contentor;
  */
 public interface IContentorRepository {
     
-    public boolean save(Contentor c);
+    public boolean save(TipoContentor c);
     
-    public List<Contentor> getAll();
+    public List<TipoContentor> getAll();
     
 }

@@ -6,16 +6,15 @@
 
 package paletizacao.model;
 
-import sun.security.krb5.internal.Ticket;
 
 /**
  * Representa a distribuicao do artigo num determinado tipo de palete.
  * @author Mac
  */
-public class PaleteArtigo {
+public abstract class PaleteArtigo {
     
      /**Tipo de palete da distribuicao*/
-     private TipoPalete palete;
+     private DescricaoPalete palete;
 
      /**Numero de caixas por cada fiada(camada)*/
      private int cxFiada;
@@ -36,10 +35,18 @@ public class PaleteArtigo {
      * @param c numero de caixas por cada fiada
      * @param f numero de fiadas por palete
      */
-    public PaleteArtigo(TipoPalete t, int c, int f) {
+    public PaleteArtigo(DescricaoPalete t, int c, int f) {
         this.palete = t;
         this.cxFiada = c;
         this.fiadaPal = f;
     }
     
+    /**
+     * 
+     * @return int, com o numero de caixas a ser guardado por cada palete.
+     */
+    public int getCaixasPorPalete() {
+        return this.cxFiada * this.fiadaPal;
+    }
+     
 }

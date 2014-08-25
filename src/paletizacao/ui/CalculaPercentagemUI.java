@@ -13,6 +13,7 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.util.Locale;
+import java.util.Map;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.DefaultListModel;
@@ -122,8 +123,11 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
                 formMousePressed(evt);
             }
         });
+        getContentPane().setLayout(null);
 
         jLabel1.setText("Mercado:");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(6, 77, 57, 16);
 
         mercadoCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         mercadoCB.addActionListener(new java.awt.event.ActionListener() {
@@ -131,10 +135,18 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
                 mercadoCBActionPerformed(evt);
             }
         });
+        getContentPane().add(mercadoCB);
+        mercadoCB.setBounds(6, 99, 273, 27);
+        getContentPane().add(jSeparator1);
+        jSeparator1.setBounds(6, 132, 273, 12);
 
         jLabel2.setText("Artigos");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(6, 150, 46, 16);
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        getContentPane().add(jSeparator2);
+        jSeparator2.setBounds(912, 352, 50, 0);
 
         listaArtigos.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -148,9 +160,16 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(listaArtigos);
 
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(6, 172, 273, 174);
+
         jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        getContentPane().add(jSeparator3);
+        jSeparator3.setBounds(906, 6, 0, 330);
 
         jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        getContentPane().add(jSeparator4);
+        jSeparator4.setBounds(285, 77, 12, 269);
 
         tabelaProdutos.getTableHeader().setReorderingAllowed(false);
 
@@ -196,9 +215,18 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
             tabelaProdutos.getColumnModel().getColumn(2).setPreferredWidth(1);
         }
 
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(303, 99, 349, 213);
+        getContentPane().add(jSeparator5);
+        jSeparator5.setBounds(6, 61, 646, 10);
+
         jLabel3.setText("Artigos:");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(303, 77, 50, 16);
 
         jLabel4.setText("Contentor:");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(6, 6, 67, 16);
 
         contentoresCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         contentoresCB.addActionListener(new java.awt.event.ActionListener() {
@@ -206,10 +234,16 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
                 contentoresCBActionPerformed(evt);
             }
         });
+        getContentPane().add(contentoresCB);
+        contentoresCB.setBounds(6, 28, 227, 27);
 
         jSeparator6.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        getContentPane().add(jSeparator6);
+        jSeparator6.setBounds(658, 6, 12, 346);
 
         jLabel5.setText("Tipo Palete:");
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(301, 6, 73, 16);
 
         tipoPaleteCB.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         tipoPaleteCB.addActionListener(new java.awt.event.ActionListener() {
@@ -217,14 +251,22 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
                 tipoPaleteCBActionPerformed(evt);
             }
         });
+        getContentPane().add(tipoPaleteCB);
+        tipoPaleteCB.setBounds(301, 28, 229, 27);
 
         jSeparator8.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        getContentPane().add(jSeparator8);
+        jSeparator8.setBounds(283, 6, 12, 49);
 
         jLabel6.setText("Vol. Contentor");
         jLabel6.setToolTipText("Volume do contentor em m3");
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(676, 12, 91, 16);
 
         volCTextF.setEditable(false);
         volCTextF.setToolTipText("Volume do contentor em m3");
+        getContentPane().add(volCTextF);
+        volCTextF.setBounds(816, 6, 84, 28);
 
         eraseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/erase.png"))); // NOI18N
         eraseButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -232,13 +274,19 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
                 eraseButtonMouseClicked(evt);
             }
         });
+        getContentPane().add(eraseButton);
+        eraseButton.setBounds(582, 318, 32, 28);
 
         jLabel7.setText("Vol. Ocupado");
         jLabel7.setToolTipText("Volume ocupada pela encomenda em m3");
+        getContentPane().add(jLabel7);
+        jLabel7.setBounds(676, 80, 91, 16);
 
         volOcupadoTF.setEditable(false);
         volOcupadoTF.setText("0.0000");
         volOcupadoTF.setToolTipText("Volume ocupada pela encomenda em m3");
+        getContentPane().add(volOcupadoTF);
+        volOcupadoTF.setBounds(816, 74, 84, 28);
 
         addButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/add.png"))); // NOI18N
         addButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -246,6 +294,8 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
                 addButtonMouseClicked(evt);
             }
         });
+        getContentPane().add(addButton);
+        addButton.setBounds(544, 318, 32, 28);
 
         emptyButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/empty.png"))); // NOI18N
         emptyButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -253,165 +303,29 @@ public class CalculaPercentagemUI extends javax.swing.JFrame {
                 emptyButtonMouseClicked(evt);
             }
         });
+        getContentPane().add(emptyButton);
+        emptyButton.setBounds(620, 318, 32, 28);
 
         jLabel8.setText("% Ocupação");
         jLabel8.setToolTipText("Percentagem de ocupacao da encomenda incluindo as paletes");
+        getContentPane().add(jLabel8);
+        jLabel8.setBounds(676, 114, 75, 16);
 
         percentagemOcupacaoTF.setEditable(false);
         percentagemOcupacaoTF.setText("0.00 %");
         percentagemOcupacaoTF.setToolTipText("Percentagem de ocupacao da encomenda incluindo as paletes");
+        getContentPane().add(percentagemOcupacaoTF);
+        percentagemOcupacaoTF.setBounds(816, 108, 84, 28);
 
         jLabel9.setText("Vol. Cont. com Palete");
         jLabel9.setToolTipText("volume do contentor sem a altura da palete");
+        getContentPane().add(jLabel9);
+        jLabel9.setBounds(676, 46, 134, 16);
 
         volContPalTF.setEditable(false);
         volContPalTF.setToolTipText("volume do contentor sem a altura da palete");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(contentoresCB, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(50, 50, 50)
-                        .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tipoPaleteCB, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
-                        .addGap(128, 128, 128))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jScrollPane1)
-                                    .addComponent(mercadoCB, 0, 273, Short.MAX_VALUE)
-                                    .addComponent(jSeparator1))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(eraseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(emptyButton))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                            .addComponent(jSeparator5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(49, 49, 49)
-                                .addComponent(volCTextF, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(volOcupadoTF, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(percentagemOcupacaoTF, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(volContPalTF)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jSeparator3)
-                        .addGap(16, 16, 16))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(contentoresCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tipoPaleteCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jSeparator8))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel1))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(0, 0, Short.MAX_VALUE)
-                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(addButton)
-                                                        .addComponent(emptyButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                    .addComponent(eraseButton, javax.swing.GroupLayout.Alignment.TRAILING)))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(mercadoCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel2)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jScrollPane1)))
-                                        .addContainerGap())))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jSeparator4)
-                                .addContainerGap())))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(volCTextF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(volContPalTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(volOcupadoTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(percentagemOcupacaoTF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jSeparator6)))
-        );
+        getContentPane().add(volContPalTF);
+        volContPalTF.setBounds(816, 40, 84, 28);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

@@ -9,6 +9,7 @@ package paletizacao.controller;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -178,5 +179,9 @@ public class CalculaPercentagemController {
      */
     public double getQuantidadeArtig(Artigo art) {
         return artigos.get(art).doubleValue();
+    }
+    
+    public HashMap<Artigo,Double> convertMapa() {
+        return artigos.convertMapaQuantidade();
     }
 }

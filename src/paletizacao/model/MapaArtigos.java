@@ -6,6 +6,7 @@
 
 package paletizacao.model;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -90,6 +91,23 @@ public class MapaArtigos extends LinkedHashMap<Artigo, Double>{
         for(int j=0;j<tam;j++) {
             this.remove(temp[j]);
         }
+    }
+    
+    /**
+     * Método que converte o mapa de artigos para um novo HashMap com todos os artigos
+     * e o numero de caixas dependendo da quantidade pretendida.
+     * @return mapa com artigo e a quantidade correspondente
+     */
+    public HashMap<Artigo,Double> convertMapaQuantidade() {
+        HashMap<Artigo,Double> artigosCaixas = new HashMap<Artigo,Double>();
+        
+        for(Map.Entry<Artigo,Double> entry : this.entrySet()) {
+            Double caixas = new Double(entry.getKey().kilogramaParaCaixas(entry.getValue().doubleValue()));
+            artigosCaixas.put(entry.getKey(),caixas);
+        }
+        
+        return artigosCaixas;
+        
     }
     
     

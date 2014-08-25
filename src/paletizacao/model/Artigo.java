@@ -7,7 +7,7 @@
 package paletizacao.model;
 
 /**
- *
+ *Classe que representa um artigo
  * @author Mac
  */
 public class Artigo {
@@ -27,8 +27,11 @@ public class Artigo {
     /**Numero de artigos por cada caixa*/
     private int uniCaixa;
     
-    /**Distribuicao de um artifo numa palete*/
-    private PaleteArtigo distribuicao;
+    /**Distribuicao de um artifo numa palete Industrial*/
+    private PaleteIndustrialArtigo industrial;
+    
+    /**Distribuicao de um artigo numa Euro Palete*/
+    private EuroPaleteArtigo euro;
     
     /**
      * Cria um novo artigo vazio. 
@@ -69,11 +72,41 @@ public class Artigo {
     }
     
     /**
-     * Define o atributo distribuicao
-     * @param p a distribuicao de um artigo numa palete
+     * Método que retorna o nome do artigo.
+     * @return String, com o nome do artigo 
      */
-    public void setDistribuicaoPalete(PaleteArtigo p) {
-        this.distribuicao = p;
+    public String getNomeArtigo() {
+        return this.nomeArtigo;
+    }
+    
+    /**
+     * Define a distribuicao numa europalete
+     * @param p a distribuicao de um artigo numa EuroPalete
+     */
+    public void setEuroPalete(EuroPaleteArtigo e) {
+        this.euro = e;
+    }
+    
+    /**
+     * Define a distribuicao numa palete industrial
+     * @param p a distribuicao de um artigo numa palete industrial
+     */
+    public void setPaleteIndustrial(PaleteIndustrialArtigo i) {
+        this.industrial = i;
+    }
+    
+    /**
+     * Metodo que retorna a distribuicao consoante o tipo de palete pedido.
+     * @param t, tipo de palete para returnar a distribuicao desejada.
+     * @return 
+     */
+    public PaleteArtigo getDistribuicao(TipoPalete t) {
+        if(t.getTipoPalete().equals(DescricaoPalete.EUROPALETE)) {
+            return euro;
+        } else if(t.getTipoPalete().equals(DescricaoPalete.PAL_INDUSTRIALRF20)) {
+            return industrial;
+        }
+        return null;
     }
     
     /**

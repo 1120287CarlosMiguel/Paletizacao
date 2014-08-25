@@ -9,7 +9,8 @@ package paletizacao.model;
 import java.util.ArrayList;
 
 /**
- *
+ *Classe que representa um tipo de Mercado.
+ * Onde e guardado os artigos existentes.
  * @author Mac
  */
 public class Mercado {

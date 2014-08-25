@@ -36,6 +36,10 @@ public class TipoPalete {
        return this.altura;
    }
    
+   public DescricaoPalete getTipoPalete() {
+       return this.tipo;
+   }
+   
    public String toString() {
        return tipo.toString();
    }

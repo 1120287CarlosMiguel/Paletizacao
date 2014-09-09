@@ -37,9 +37,14 @@ public class DistribuiContentor {
     }
     
     public void distribui() {
+        
         HashMap<Artigo,Double> artigoCaixa = artigos.convertMapaQuantidade();
         
         for(Map.Entry<Artigo,Double> entry : artigoCaixa.entrySet()) {
+            
+            int numCaixasPalete = entry.getKey().getDistribuicao(this.palete).getCaixasPorPalete();
+            
+            double numPaletes = entry.getValue() / numCaixasPalete;
             
         }
     }

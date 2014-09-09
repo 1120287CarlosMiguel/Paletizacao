@@ -181,7 +181,4 @@ public class CalculaPercentagemController {
         return artigos.get(art).doubleValue();
     }
     
-    public HashMap<Artigo,Double> convertMapa() {
-        return artigos.convertMapaQuantidade();
-    }
 }
